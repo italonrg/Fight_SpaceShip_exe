@@ -1,10 +1,11 @@
 import model.Fase;
 import javax.swing.*;
+import java.io.IOException;
 
 public class Container extends JFrame {
 
     //tela principal do game
-    public Container (){
+    public Container () throws IOException {
 
         add(new Fase());// adicionando a fase que criei no conteiner;
         setTitle("Tela Principal");// coloca titulo na tela
@@ -15,7 +16,7 @@ public class Container extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Container();//instanciado uma tela;
     }
 }
