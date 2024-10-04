@@ -1,8 +1,11 @@
 package model;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Player {
     private int x,y;// usado para mover a nave;
@@ -18,9 +21,10 @@ public class Player {
     }
 
     // carregar a imagem da nave/Player
-    public void load(){
-        ImageIcon referencia = new ImageIcon();
-        image = referencia.getImage();
+    public void load() throws IOException {
+     ClassLoader classLoader = getClass().getClassLoader();
+     InputStream is = classLoader.getResourceAsStream("res/nave_player");
+     image = ImageIO.read(is);
 
         altura = image.getHeight(null); // definindo a altura e largura da nave;
         largura = image.getWidth(null);
@@ -69,5 +73,27 @@ public class Player {
         }
     }
 
+    public Image getImage() {
+        return image;
+    }
 
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
 }
