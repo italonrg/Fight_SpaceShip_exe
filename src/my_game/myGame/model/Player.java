@@ -1,9 +1,11 @@
 package model;
-
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -19,17 +21,19 @@ public class Player {
         this.y = 100;// esses valores são as cordenadas de onde a nave vai aparecer;
 
     }
-
     // carregar a imagem da nave/Player
-    public void load() throws IOException {
-     ClassLoader classLoader = getClass().getClassLoader();
-     InputStream is = classLoader.getResourceAsStream("res/nave_player");
-     image = ImageIO.read(is);
-
-        altura = image.getHeight(null); // definindo a altura e largura da nave;
-        largura = image.getWidth(null);
-
-    }
+   public void load() throws IOException {
+       ClassLoader classLoader = getClass().getClassLoader();
+       InputStream xs = classLoader.getResourceAsStream("res/nave_player.png");
+       if (xs != null) {
+           image = ImageIO.read(xs);
+           altura = image.getHeight(null);
+           largura = image.getWidth(null);
+           image.getScaledInstance(250,250,0);
+       } else {
+           System.err.println("Imagem da nave não encontrada!");
+       }
+   }
 
     //definindo o movimento da nave;
     public void update (){
@@ -56,7 +60,7 @@ public class Player {
     }
 
     //metodo para que quando a tecla parar de ser apertada a nave pare;
-    public void keyRelesed(KeyEvent tecla){
+    public void keyReleased(KeyEvent tecla){
         int codigo = tecla.getKeyCode();
 
         if (codigo == KeyEvent.VK_UP){
@@ -77,23 +81,12 @@ public class Player {
         return image;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public int getX() {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 }
